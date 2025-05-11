@@ -11,7 +11,7 @@ namespace Bulider_Pattern.Controllers
         [HttpPost("create")]
         public IActionResult Create([FromBody] ProductCreateRequest request)
         {
-            ProductBuilder? builder = new ProductBuilder(request.Name, request.Price);
+            ProductBuilder? builder = new(request.Name, request.Price);
 
             if (!string.IsNullOrWhiteSpace(request.Description))
                 builder.SetDescription(request.Description);

@@ -14,7 +14,7 @@ public class ProductServiceLoggingDecorator(IProductService inner, ILogger<Produ
     {
         _logger.LogInformation("Creating product: {Name}, Price: {Price}", request.Name, request.Price);
 
-        var product = _inner.CreateProduct(request);
+        Product? product = _inner.CreateProduct(request);
 
         _logger.LogInformation("Product created successfully: {Name}", product.Name);
         return product;
