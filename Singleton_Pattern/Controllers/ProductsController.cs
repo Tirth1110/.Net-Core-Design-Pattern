@@ -6,14 +6,9 @@ namespace Singleton_Pattern.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductsController : ControllerBase
+public class ProductsController(IProductLogger logger) : ControllerBase
 {
-    private readonly IProductLogger _logger;
-
-    public ProductsController(IProductLogger logger)
-    {
-        _logger = logger;
-    }
+    private readonly IProductLogger _logger = logger;
 
     [HttpPost("create")]
     public IActionResult Create([FromBody] ProductCreateRequest request)

@@ -6,14 +6,9 @@ namespace Repository_Pattern.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductsController : ControllerBase
+public class ProductsController(IProductRepository repo) : ControllerBase
 {
-    private readonly IProductRepository _repo;
-
-    public ProductsController(IProductRepository repo)
-    {
-        _repo = repo;
-    }
+    private readonly IProductRepository _repo = repo;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
@@ -41,7 +36,7 @@ public class ProductsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, Product product)
     {
-        var existing = await _repo.GetByIdAsync(id);
+        Product? existing = await _repo.GetByIdAsync(id);
         if (existing == null) return NotFound();
 
         existing.Name = product.Name;

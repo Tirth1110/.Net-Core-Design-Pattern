@@ -7,14 +7,9 @@ namespace CQRS_Command.ProductQuery;
 
 public record GetAllProductsQuery : IRequest<IEnumerable<Product>>;
 
-public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, IEnumerable<Product>>
+public class GetAllProductsQueryHandler(AppDbContext context) : IRequestHandler<GetAllProductsQuery, IEnumerable<Product>>
 {
-    private readonly AppDbContext _context;
-
-    public GetAllProductsQueryHandler(AppDbContext context)
-    {
-        _context = context;
-    }
+    private readonly AppDbContext _context = context;
 
     public async Task<IEnumerable<Product>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
     {
